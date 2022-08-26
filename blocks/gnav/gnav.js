@@ -2,11 +2,12 @@ import {
   loadScript,
   getHelixEnv,
   debug,
+  makeLinksRelative,
   getLocale,
 } from '../../scripts/scripts.js';
 import { createTag } from '../block-helpers.js';
 
-const BRAND_IMG = '<img loading="lazy" alt="Adobe" src="/blocks/gnav/company-logo.svg">';
+const BRAND_IMG = '<img loading="lazy" alt="Adobe" src="/blocks/gnav/adobe-logo.svg">';
 const SEARCH_ICON = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false">
 <path d="M14 2A8 8 0 0 0 7.4 14.5L2.4 19.4a1.5 1.5 0 0 0 2.1 2.1L9.5 16.6A8 8 0 1 0 14 2Zm0 14.1A6.1 6.1 0 1 1 20.1 10 6.1 6.1 0 0 1 14 16.1Z"></path>
 </svg>`;
@@ -43,6 +44,18 @@ class Gnav {
       nav.append(search);
     }
 
+    const profile = this.decorateProfile();
+    if (profile) {
+      nav.append(profile);
+    }
+
+    const logo = this.decorateLogo();
+    if (logo) {
+      nav.append(logo);
+    }
+
+    makeLinksRelative(nav);
+
     const wrapper = createTag('div', { class: 'gnav-wrapper' }, nav);
     this.el.append(this.curtain, wrapper);
   }
@@ -76,18 +89,22 @@ class Gnav {
     const brand = brandBlock.querySelector('a');
 
     const { className } = brandBlock;
-    const classNames = className.split(' ');
-    classNames.forEach((clsName) => {
-      brand.classList.add(clsName);
-    });
-
+    const classNameClipped = className.slice(0, -1);
+    const classNames = classNameClipped.split('--');
+    brand.className = classNames.join(' ');
     if (brand.classList.contains('with-logo')) {
-      const brandImg = document.createElement('img');
-      brandImg.setAttribute('src', '/blocks/gnav/company-logo.svg');
-      brand.innerHTML = '';
-      brand.appendChild(brandImg);
+      brand.insertAdjacentHTML('afterbegin', BRAND_IMG);
     }
     return brand;
+  }
+
+  decorateLogo = () => {
+    const logo = this.body.querySelector('.adobe-logo a');
+    logo.classList.add('gnav-logo');
+    logo.setAttribute('aria-label', logo.textContent);
+    logo.textContent = '';
+    logo.insertAdjacentHTML('afterbegin', BRAND_IMG);
+    return logo;
   }
 
   decorateMainNav = () => {
