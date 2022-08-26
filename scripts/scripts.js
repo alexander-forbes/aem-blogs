@@ -10,12 +10,6 @@
  * governing permissions and limitations under the License.
  */
 
-/**
- * log RUM if part of the sample.
- * @param {string} checkpoint identifies the checkpoint in funnel
- * @param {Object} data additional data for RUM sample
- */
-
 const PRODUCTION_DOMAINS = ['blog.alexforbes.com'];
 
 /**
@@ -101,30 +95,6 @@ export function loadCSS(href, callback) {
   } else if (typeof callback === 'function') {
     callback('noop');
   }
-}
-
-/**
- * Turns absolute links within the domain into relative links.
- * @param {Element} main The container element
- */
-export function makeLinksRelative(main) {
-  main.querySelectorAll('a').forEach((a) => {
-    // eslint-disable-next-line no-use-before-define
-    const hosts = ['hlx3.page', 'hlx.page', 'hlx.live', ...PRODUCTION_DOMAINS];
-    if (a.href) {
-      try {
-        const url = new URL(a.href);
-        const relative = hosts.some((host) => url.hostname.includes(host));
-        if (relative) {
-          a.href = `${url.pathname.replace(/\.html$/, '')}${url.search}${url.hash}`;
-        }
-      } catch (e) {
-        // something went wrong
-        // eslint-disable-next-line no-console
-        console.log(e);
-      }
-    }
-  });
 }
 
 const LANG = {
@@ -896,7 +866,6 @@ function decoratePictures(main) {
 export function decorateMain(main) {
   // forward compatible pictures redecoration
   decoratePictures(main);
-  makeLinksRelative(main);
   buildAutoBlocks(main);
   splitSections();
   removeEmptySections();
