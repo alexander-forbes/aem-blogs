@@ -87,7 +87,7 @@ class Gnav {
     brand.className = classNames.join(' ');
     if (brand.classList.contains('with-logo')) {
       brand.innerHTML = '';
-      const brandImg = document.createElement('img');
+      const brandImg = document.createElement('picture');
       brandImg.setAttribute('alt', 'AlexForbes');
       brandImg.setAttribute('src', '/blocks/gnav/alexforbes-logo-white.svg');
       brandImg.setAttribute('loading', 'lazy');
