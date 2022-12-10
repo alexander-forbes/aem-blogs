@@ -128,7 +128,7 @@ export default async function decorateArticleHeader(blockEl, blockName, document
 
   const authorsContainer = childrenEls[3];
   authorsContainer.classList.add('article-authors');
-  authorsContainer.firstChild.classList.add('article-authors-info');
+  authorsContainer.firstElementChild.classList.add('article-authors-info');
   decorateAuthors(authorsContainer, eager);
 
   // sharing
@@ -138,10 +138,10 @@ export default async function decorateArticleHeader(blockEl, blockName, document
   // feature img
   const featureImgContainer = childrenEls[4];
   featureImgContainer.classList.add('article-feature-image');
-  const featureFigEl = buildFigure(featureImgContainer.firstChild);
+  const featureFigEl = buildFigure(featureImgContainer.firstElementChild);
   featureFigEl.classList.add('figure-feature');
   featureImgContainer.prepend(featureFigEl);
-  featureImgContainer.lastChild.remove();
+  featureImgContainer.lastElementChild.remove();
 }
 
 function decorateAuthors(authorsContainer, eager) {
