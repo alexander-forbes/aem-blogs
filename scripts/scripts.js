@@ -16,7 +16,7 @@
  * @param {Object} data additional data for RUM sample
  */
 
-const PRODUCTION_DOMAINS = ['blog.alexforbes.com'];
+const PRODUCTION_DOMAINS = ['blogs.alexforbes.com'];
 
 /**
  * log RUM if part of the sample.
