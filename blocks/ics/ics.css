@@ -1,0 +1,17 @@
+main .ics.block p {
+    margin: unset;
+}
+
+main .ics.block img {
+    width: 15px;
+    height: 15px;
+}
+main .ics.block .btn-ics-download {
+    display: flex;
+    padding: 5px;
+    align-items: center;
+}
+
+main .ics.block .btn-ics-download>p {
+    padding: 0 10px;
+}
